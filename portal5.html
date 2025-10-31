@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Real Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+  color: #fff;
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding-top: 100px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Navigation Bar */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: rgba(10, 15, 30, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+  transition: all 0.4s ease;
+}
+
+header.scrolled {
+  padding: 10px 0;
+  background: rgba(5, 10, 20, 0.98);
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+}
+  .social-icons a {
+      color: #74c0fc;
+      margin: 0 10px;
+      font-size: 20px;
+      transition: transform 0.3s;
+    }
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #4dabf7;
+  font-size: 28px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+.logo-icon {
+  color: #74c0fc;
+  font-size: 32px;
+  animation: pulse 2s infinite;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+}
+
+.nav-links li {
+  position: relative;
+}
+
+.nav-links a {
+  color: #e9ecef;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 8px 0;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #74c0fc;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #4dabf7, #74c0fc);
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+.nav-links a.active {
+  color: #74c0fc;
+}
+
+.hamburger {
+  display: none;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 10px;
+  z-index: 1001;
+}
+
+.bar {
+  display: block;
+  width: 28px;
+  height: 3px;
+  margin: 5px auto;
+  background: #74c0fc;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.cta-para {
+  background: linear-gradient(90deg, #4dabf7, #339af0);
+  color: purple;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(77, 171, 247, 0.4);
+}
+
+.cta-para:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(77, 171, 247, 0.6);
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 100px 20px;
+  margin-bottom: 50px;
+}
+
+.hero h1 {
+  font-size: 4.5rem;
+  margin-bottom: 20px;
+  text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(to right, #a5d8ff, #74c0fc);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: fadeIn 1s ease-out;
+}
+
+.hero p {
+  font-size: 1.5rem;
+  max-width: 700px;
+  margin: 0 auto 40px;
+  color: #e9ecef;
+  line-height: 1.6;
+}
+
+/* Features */
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 80px;
+}
+
+.feature-card {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 35px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.feature-icon {
+  font-size: 50px;
+  margin-bottom: 20px;
+  color: #74c0fc;
+}
+
+.feature-card h3 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #a5d8ff;
+}
+
+.feature-card p {
+  color: #ced4da;
+  line-height: 1.6;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 30px;
+  margin-top: 50px;
+  background: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Animations */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .nav-container {
+    padding: 20px 30px;
+  }
+  .nav-links {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    flex-direction: column;
+    background: rgba(10, 15, 30, 0.98);
+    width: 200px;
+    height: 100vh;
+    padding: 100px 40px;
+    transition: 0.6s ease;
+    backdrop-filter: blur(10px);
+    box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .nav-links.active {
+    right: 0;
+  }
+
+  .nav-links li {
+    margin: 15px 0;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .hamburger.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .hamburger.active .bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  .hero h1 {
+    font-size: 3.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .nav-container {
+    padding: 15px 20px;
+  }
+
+  .logo {
+    font-size: 22px;
+  }
+
+  .hero h1 {
+    font-size: 2.8rem;
+  }
+
+  .hero p {
+    font-size: 1.2rem;
+  }
+
+  .welcome {
+    color: purple;
+    font-weight: 600;
+  }
+}
+
+.link {
+  color: #97b824;
+}
+  </style> 
+  <!-- Firebase SDKs -->  
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js">
+  </script>  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js">
+  </script>
+</head>
+  <body>
+  <!-- Navigation Bar -->
+  <header id="header">
+    <div class="nav-container">
+      <a href="#" class="logo">
+      <ul class="nav-links">
+        <li><a href="#" class="active">Home</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#" onclick="logout()">Logout</a></li>
+      </ul>
+      <h1 class="welcome">Welcome to my portal</h1>
+      <button class="hamburger">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1>Modern Navigation Experience</h1>
+      <p>Welcome to my personal portal. I'm passionate about coding, technology, and transforming ideas into reality. Explore my projects, achievements, and journey here.</p>
+      <button class="cta-para">Explore Features</button>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+      <div class="feature-card">
+        <i class="fas fa-bolt feature-icon"></i>
+        <h3>Lightning Fast</h3>
+        <p>Optimized animations for smooth performance without compromising speed.</p>
+      </div>
+
+      <div class="feature-card">
+        <i class="fas fa-mobile-alt feature-icon"></i>
+        <h3>Fully Responsive</h3>
+        <p>Looks perfect on all devices from mobile phones to large desktops.</p>
+      </div>
+
+      <div class="feature-card">
+        <i class="fas fa-paint-brush feature-icon"></i>
+        <h3>Elegant Design</h3>
+        <p>Modern aesthetics with subtle gradients and smooth animations.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3>Contact Me</h3>
+        <p>For more information:</p>
+        <p>Phone: <a class="link" href="tel:0793901532">0793901532</a></p>
+        <p>Email: <a class="link" href="mailto:stevewisekimani@gmail.com">stevewisekimani@gmail.com</a></p>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="social-icons">
+      <a href="https://facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a>
+      <a href="https://github.com/" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://linkedin.com/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+    </div><br>
+    <p>&copy; 2025 Made by the Great Hands of Stevekim</p>
+  </footer>
+<!-- Firebase Compat SDKs for GitHub support -->
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+
+<script>
+  // Your Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyC2CCqCIiZ0xGi9fJsDqCk3129V-7yE9GI",
+    authDomain: "mpesa-pay-app.firebaseapp.com",
+    projectId: "mpesa-pay-app",
+    storageBucket: "mpesa-pay-app.appspot.com",
+    messagingSenderId: "369972154385",
+    appId: "1:369972154385:web:3f0b843bd487d10cd121b0"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  // Logout Function
+  function logout() {
+    auth.signOut().then(() => {
+      alert("You have been logged out.");
+      window.location.href = "index.html"; // Redirect to login page
+    }).catch((error) => {
+      alert("Error logging out: " + error.message);
+    });
+  }
+
+  // Attach to global window object
+  window.logout = logout;
+</script>
+  <script>
+    // Navbar scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Hamburger toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('active');
+      document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
+    });
+
+    // Anchor smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        if (targetId !== '#') {
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 80,
+              behavior: 'smooth'
+            });
+          }
+        }
+      });
+    });
+
+    // Animate feature cards
+    const featureCards = document.querySelectorAll('.feature-card');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animation = 'fadeIn 0.8s ease forwards';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    featureCards.forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      observer.observe(card);
+    });
+  </script>
+</body>
+    
+    
