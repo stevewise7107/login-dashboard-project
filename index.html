@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">  
+<head>  
+  <meta charset="UTF-8" />  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>  
+  <title>Login / Sign Up</title>  
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>    <style>  
+    :root {  
+      --neon-green: #00ff84;  
+      --green-glow: rgba(0, 255, 132, 0.4);  
+      --text-light: #ffffffcc;  
+      --text-dark: #ffffff;  
+      --background-dark: #062e22;  
+      --border-radius: 20px;  
+      --shadow-glow: 0 0 15px rgba(0, 255, 132, 0.6);  
+      --font-family: 'Poppins', sans-serif;  
+    }  
+  
+    * {  
+      margin: 0;  
+      padding: 0;  
+      box-sizing: border-box;  
+    }  
+  
+    body {  
+      font-family: var(--font-family);  
+      background: linear-gradient(145deg, #041c17, #05271f);  
+      color: var(--text-dark);  
+      display: flex;  
+      justify-content: center;  
+      align-items: center;  
+      min-height: 100vh;  
+      padding: 20px;  
+    }  
+  
+    .auth-container {  
+      background: rgba(0, 0, 0, 0.3);  
+      border: 2px solid var(--neon-green);  
+      border-radius: var(--border-radius);  
+      padding: 40px 30px;  
+      width: 100%;  
+      max-width: 400px;  
+      text-align: center;  
+      box-shadow: var(--shadow-glow);  
+    }  
+  
+    .form-title {  
+      font-size: 2rem;  
+      font-weight: bold;  
+      margin-bottom: 30px;  
+    }  
+  
+    .input-group {  
+      margin-bottom: 20px;  
+      position: relative;  
+    }  
+  
+    .input-field {  
+      width: 100%;  
+      background: transparent;  
+      border: 2px solid var(--neon-green);  
+      border-radius: var(--border-radius);  
+      padding: 14px 15px;  
+      color: var(--text-dark);  
+      font-size: 1rem;  
+    }  
+  
+    .input-field::placeholder {  
+      color: var(--neon-green);  
+    }  
+  
+    .input-field:focus {  
+      border-color: var(--neon-green);  
+      box-shadow: 0 0 5px var(--neon-green);  
+      outline: none;  
+    }  
+  
+    .submit-btn {  
+      background: transparent;  
+      border: 2px solid var(--neon-green);  
+      border-radius: var(--border-radius);  
+      color: var(--neon-green);  
+      padding: 14px;  
+      font-size: 1rem;  
+      font-weight: 600;  
+      cursor: pointer;  
+      margin-top: 10px;  
+      width: 100%;  
+      box-shadow: var(--shadow-glow);  
+      transition: 0.3s ease-in-out;  
+    }  
+  
+    .submit-btn:hover {  
+      background: var(--neon-green);  
+      color: black;  
+      transform: scale(1.02);  
+    }  
+  
+    .forgot-link {  
+      color: var(--text-light);  
+      font-size: 0.85rem;  
+      margin-top: 15px;  
+    }  
+  
+    .divider {  
+      margin: 30px 0 20px;  
+      font-size: 0.9rem;  
+      color: var(--text-light);  
+      position: relative;  
+    }  
+  
+    .divider::before,  
+    .divider::after {  
+      content: "";  
+      position: absolute;  
+      top: 50%;  
+      width: 45%;  
+      height: 1px;  
+      background: var(--neon-green);  
+    }  
+  
+    .divider::before {  
+      left: 0;  
+    }  
+  
+    .divider::after {  
+      right: 0;  
+    }  
+  
+    .social-login {  
+      display: flex;  
+      justify-content: center;  
+      gap: 15px;  
+      margin-bottom: 25px;  
+    }  
+  
+    .social-btn {  
+      width: 45px;  
+      height: 45px;  
+      border-radius: 50%;  
+      font-size: 1.2rem;  
+      display: flex;  
+      justify-content: center;  
+      align-items: center;  
+      border: 2px solid var(--neon-green);  
+      color: white;  
+      transition: 0.3s;  
+    }  
+  
+    .social-btn:hover {  
+      background-color: var(--green-glow);  
+      transform: scale(1.1);  
+    }  
+  
+    .switch-form {  
+      font-size: 0.9rem;  
+      color: var(--text-light);  
+    }  
+  
+    .switch-form a {  
+      color: var(--neon-green);  
+      text-decoration: none;  
+      font-weight: bold;  
+      cursor: pointer;  
+    }  
+  
+    .switch-form a:hover {  
+      text-decoration: underline;  
+    }  
+  
+    .form-box {  
+      display: none;  
+    }  
+  
+    .form-box.active {  
+      display: block;  
+    }  
+  
+    .message {  
+      margin-top: 10px;  
+      font-weight: bold;  
+      font-size: 0.95rem;  
+    }  
+  
+    .success {  
+      color: #00ff84;  
+    }  
+  
+    .error {  
+      color: #ff4d4d;  
+    }  
+  </style>  </head>  
+<body>  
+  <div class="auth-container">  
+    <!-- LOGIN FORM -->  
+    <form class="auth-form form-box active" id="loginForm">  
+      <h2 class="form-title">Sign In Here</h2>  
+      <div class="input-group">  
+        <input type="email" id="loginEmail" class="input-field" placeholder="Email Address" required />  
+      </div>  
+      <div class="input-group">  
+        <input type="password" id="loginPassword" class="input-field" placeholder="Password" required />  
+      </div>  
+      <button class="submit-btn" type="submit">Sign In</button>  
+      <p id="loginMessage" class="message"></p>  
+      <p class="forgot-link">Forgot Password?</p>  
+      <div class="divider">OR</div>  
+      <div class="social-login">  
+        <div class="social-btn"><i class="fab fa-facebook-f"></i></div>  
+        <div class="social-btn"><i class="fab fa-google-plus-g"></i></div>  
+        <div class="social-btn"><i class="fab fa-github"></i></div>  
+        <div class="social-btn"><i class="fab fa-stack-overflow"></i></div>  
+      </div>  
+      <p class="switch-form">New User? <a onclick="switchForm('signup')">Sign Up</a></p>  
+    </form>  <!-- SIGNUP FORM -->  
+<form class="auth-form form-box" id="signupForm">  
+  <h2 class="form-title">Create Account</h2>  
+  <div class="input-group">  
+    <input type="text" id="signupName" class="input-field" placeholder="Full Name" required />  
+  </div>  
+  <div class="input-group">  
+    <input type="email" id="signupEmail" class="input-field" placeholder="Email Address" required />  
+  </div>  
+  <div class="input-group">  
+    <input type="password" id="signupPassword" class="input-field" placeholder="Password" required />  
+  </div>  
+  <button class="submit-btn" type="submit">Sign Up</button>  
+  <p id="signupMessage" class="message"></p>  
+  <div class="divider">OR</div>  
+  <div class="social-login">  
+    <div class="social-btn"><i class="fab fa-facebook-f"></i></div>  
+    <div class="social-btn"><i class="fab fa-google-plus-g"></i></div>  
+    <div class="social-btn"><i class="fab fa-github"></i></div>  
+    <div class="social-btn"><i class="fab fa-stack-overflow"></i></div>  
+  </div>  
+  <p class="switch-form">Already have an account? <a onclick="switchForm('login')">Sign In</a></p>  
+</form>
+
+  </div>   
+ <!-- Firebase v9 Compatibility SDKs (No type=module needed) -->
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+
+<script>
+  // Your Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyC2CCqCIiZ0xGi9fJsDqCk3129V-7yE9GI",
+    authDomain: "mpesa-pay-app.firebaseapp.com",
+    projectId: "mpesa-pay-app",
+    storageBucket: "mpesa-pay-app.appspot.com",
+    messagingSenderId: "369972154385",
+    appId: "1:369972154385:web:3f0b843bd487d10cd121b0"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  // Login
+  document.getElementById("loginForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const email = document.getElementById("loginEmail").value;
+    const password = document.getElementById("loginPassword").value;
+    const msg = document.getElementById("loginMessage");
+
+    auth.signInWithEmailAndPassword(email, password)
+      .then(() => {
+        msg.textContent = "✅ Login successful!";
+        msg.className = "message success";
+        setTimeout(() => {
+          window.location.href = "portal5.html";
+        }, 1000);
+      })
+      .catch((error) => {
+        msg.textContent = "❌ " + error.message;
+        msg.className = "message error";
+      });
+  });
+
+  // Signup
+  document.getElementById("signupForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const email = document.getElementById("signupEmail").value;
+    const password = document.getElementById("signupPassword").value;
+    const msg = document.getElementById("signupMessage");
+
+    auth.createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        msg.textContent = "✅ Signup successful!";
+        msg.className = "message success";
+        setTimeout(() => {
+          window.location.href = "portal5.html";
+        }, 1000);
+      })
+      .catch((error) => {
+        msg.textContent = "❌ " + error.message;
+        msg.className = "message error";
+      });
+  });
+
+  // Form toggling
+  function switchForm(form) {
+    const loginForm = document.getElementById("loginForm");
+    const signupForm = document.getElementById("signupForm");
+    if (form === "signup") {
+      loginForm.classList.remove("active");
+      signupForm.classList.add("active");
+    } else {
+      signupForm.classList.remove("active");
+      loginForm.classList.add("active");
+    }
+  }
+  window.switchForm = switchForm;
+</script>
+</body>  
+</html> 
+
+
